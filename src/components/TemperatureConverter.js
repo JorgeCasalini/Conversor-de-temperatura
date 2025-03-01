@@ -1,16 +1,33 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 
 
 const TemperatureConverter = () => {
   let [temperature, setTemperature] = useState("");
-  const handleTemperature = (valorTecla) =>{
-    setTemperature(temperature + valorTecla);
+  const handleTemperature = (valorTecla) => {
+    if (valorTecla === "." && temperature.includes(".")) {
+      return false;
+    }
+    if (valorTecla === "-" && temperature === "") {
+      setTemperature(valorTecla);
+      return true;
+    }
+    if (valorTecla === "." && (temperature === "" || temperature === "-")) {
+      setTemperature(temperature + "0.");
+      return true;
+    }
+    if (valorTecla !== "-") {
+      setTemperature(temperature + valorTecla);
+    }
+
+
+
+
   };
-  
+
   return (
     <>
       <aside className="areaResultado">
-        <input id="user-temp" defaultValue={ temperature } />
+        <input id="user-temp" defaultValue={temperature} />
         <select id="user-choice">
           <option value="C">Celsius</option>
           <option value="F">Fahrenheit</option>
