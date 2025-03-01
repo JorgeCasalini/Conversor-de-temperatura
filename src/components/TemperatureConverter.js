@@ -3,6 +3,11 @@ import React, { useState } from "react";
 
 const TemperatureConverter = () => {
   let [temperature, setTemperature] = useState("");
+  const userSelect = document.querySelector("#user-choice");
+  const teclas = document.querySelectorAll(".tecla");
+  const resultados = document.querySelectorAll(".result");
+
+
   const handleTemperature = (valorTecla) => {
     if (valorTecla === "." && temperature.includes(".")) {
       return false;
@@ -18,12 +23,77 @@ const TemperatureConverter = () => {
     if (valorTecla !== "-") {
       setTemperature(temperature + valorTecla);
     }
-
-
-
-
   };
 
+  const handleBackSpace = () => {
+    temperature = temperature.slice(0, -1);
+    setTemperature(temperature);
+  };
+
+  const handleReset = () => {
+    [].map.call(teclas, (el) => {
+      return el.removeAttribute("disabled");
+    });
+    [].map.call(resultados, (el) => {
+      if (el.hasChildNodes()) {
+        return el.removeChild(el.firstChild);
+      }
+    });
+    userSelect.removeAttribute("disabled");
+    setTemperature("");
+  };
+
+  const handleConverter = () => {
+    const resultCelsius = document.querySelector("#celsius-temp");
+    const resultFahrenheit = document.querySelector("#fahrenheit-temp");
+    const resultKelvin = document.querySelector("#kelvin-temp");
+    temperature = Number(temperature)
+
+    userSelect.setAttribute("disabled", true);
+    [].map.call(teclas, (el) => {
+      return el.setAttribute("disabled", true);
+    })
+
+    if (temperature === "-0") {
+      setTemperature("0");
+    }
+
+    const fromTemp = document.querySelector("#user-choice")
+      .options[document.querySelector("#user-choice").selectedIndex].value;
+
+    const conversions = {
+      C: {
+        C: (temperature) => temperature,
+        F: (temperature) => (temperature * 9) / 5 + 32,
+        K: (temperature) => temperature + 273.15,
+      },
+      F: {
+        C: (temperature) => (temperature - 32) * 5 / 9,
+        F: (temperature) => temperature,
+        K: (temperature) => (temperature - 32) * 5 / 9 + 273.15,
+      },
+      K: {
+        C: (temperature) => temperature - 273.15,
+        F: (temperature) => (temperature - 273.15) * 9 / 5 + 32,
+        K: (temperature) => temperature,
+      },
+    };
+
+    const convertTemperature = (from, temperature) => {
+      return {
+        C: conversions[from].C(temperature).toFixed(2),
+        F: conversions[from].F(temperature).toFixed(2),
+        K: conversions[from].K(temperature).toFixed(2),
+      };
+    };
+
+    const results = convertTemperature(fromTemp, temperature);
+
+    resultCelsius.insertAdjacentHTML("afterbegin", results.C);
+    resultFahrenheit.insertAdjacentHTML("afterbegin", results.F);
+    resultKelvin.insertAdjacentHTML("afterbegin", results.K);
+
+  }
   return (
     <>
       <aside className="areaResultado">
@@ -51,7 +121,7 @@ const TemperatureConverter = () => {
         <span>
           <sup>o</sup>K
         </span>
-        <button className="tecla" id="converter">
+        <button className="tecla" id="converter" onClick={() => handleConverter()}>
           Converter
         </button>
       </aside>
@@ -66,10 +136,10 @@ const TemperatureConverter = () => {
         <button className="n8 tecla" onClick={() => handleTemperature("8")}>8</button>
         <button className="n9 tecla" onClick={() => handleTemperature("9")}>9</button>
         <button className="n0 tecla" onClick={() => handleTemperature("0")}>0</button>
-        <button className="virgula tecla" onClick={() => handleTemperature(",")}>,</button>
-        <button className="limpa tecla"></button>
+        <button className="virgula tecla" onClick={() => handleTemperature(".")}>.</button>
+        <button className="limpa tecla" onClick={() => handleBackSpace()}></button>
         <button className="negativo tecla" onClick={() => handleTemperature("-")}>-</button>
-        <div className="reset tecla">Nova conversão</div>
+        <div className="reset tecla" onClick={() => handleReset()}>Nova conversão</div>
       </aside>
     </>
   );
