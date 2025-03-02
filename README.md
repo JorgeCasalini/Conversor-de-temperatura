@@ -53,9 +53,10 @@ Siga os passos abaixo para rodar o projeto localmente:
     │   │   ├── 📄 TemperatureConverter.js    
     │   ├── 📄 App.js             
     │   ├── 📄 index.js            
-    │   ├── 📄 index.css.css          
+    │   ├── 📄 index.css     
     ├── 📄 package.json            
-    ├── 📄 README.md               
+    ├── 📄 README.md  
+
     ```
 ## 🤝 Contribuições
 
