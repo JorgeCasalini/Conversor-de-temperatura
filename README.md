@@ -43,14 +43,15 @@ Siga os passos abaixo para rodar o projeto localmente:
 
 ## 📂 Estrutura do Projeto
 
-📦 Conversor-de-temperatura
-├── 📂 src
-│   ├── 📄 App.js    # Componente principal do projeto
-│   ├── 📄 index.js  # Ponto de entrada da aplicação
-│   ├── 📄 styles.css # Estilização da interface
-│   ├── 📂 components # Componentes reutilizáveis
-└── 📄 package.json  # Configuração e dependências do projeto
-
+    ```bash
+    📦 Conversor-de-temperatura
+    ├── 📂 src
+    │   ├── 📄 App.js    # Componente principal do projeto
+    │   ├── 📄 index.js  # Ponto de entrada da aplicação
+    │   ├── 📄 styles.css # Estilização da interface
+    │   ├── 📂 components # Componentes reutilizáveis
+    └── 📄 package.json  # Configuração e dependências do projeto
+    ```
 ## 🤝 Contribuições
 
     Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests com melhorias ou novas funcionalidades.
